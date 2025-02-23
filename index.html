@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Веб-калькулятор</title>
+
+	<link href="style.css" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" 
+		integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+<body>
+	<header class="bg-primary text-white p-3">
+		<p class="display-4">Веб-калькулятор</p>
+	</header>
+	
+	<div class="container mt-4">
+		<form class="border-bottom pb-3" id="calc-form">
+			<div class="row">
+				<div class="col">
+					<label for="input1" class="form-label text-decoration-underline" 
+						data-bs-toggle="tooltip"
+						title="Масовий вміст вуглецю в паливі на робочу масу, %">
+						C<sup>r</sup>
+					</label>
+					<input type="number" step="any" class="form-control" id="c-raw" required>
+				</div>
+				<div class="col">
+					<label for="input1" class="form-label text-decoration-underline" 
+						data-bs-toggle="tooltip"
+						title="Масовий вміст водню в паливі на робочу масу, %">
+						H<sup>r</sup>
+					</label>
+					<input type="number" step="any" class="form-control" id="h-raw" required>
+				</div>
+				<div class="col">
+					<label for="input1" class="form-label text-decoration-underline" 
+						data-bs-toggle="tooltip"
+						title="Масовий вміст сірки в паливі на робочу масу, %">
+						S<sup>r</sup>
+					</label>
+					<input type="number" step="any" class="form-control" id="s-raw" required>
+				</div>
+				<div class="col">
+					<label for="input1" class="form-label text-decoration-underline" 
+						data-bs-toggle="tooltip"
+						title="Масовий вміст кисню в паливі на робочу масу, %">
+						O<sup>r</sup></label>
+					<input type="number" step="any" class="form-control" id="o-raw" required>
+				</div>
+				<div class="col">
+					<label for="input1" class="form-label text-decoration-underline" 
+						data-bs-toggle="tooltip"
+						title="Масовий вміст азоту в паливі на робочу масу, %">
+						N<sup>r</sup></label>
+					<input type="number" step="any" class="form-control" id="n-raw" required>
+				</div>
+				<div class="col">
+					<label for="input1" class="form-label text-decoration-underline" 
+						data-bs-toggle="tooltip"
+						title="Масовий вміст золи в паливі на робочу масу, %" >
+						A<sup>r</sup>
+					</label>
+					<input type="number" step="any" class="form-control" id="a-raw" required>
+				</div>
+				<div class="col">
+					<label for="input1" class="form-label text-decoration-underline" 
+						data-bs-toggle="tooltip"
+						title="Масовий вміст вологи в паливі на робочу масу, %">
+						W<sup>r</sup>
+					</label>
+					<input type="number" class="form-control" id="w-raw" required>
+				</div>
+			</div>
+			<button type="submit" class="btn btn-primary mt-3">Обчислити</button>
+		</form>
+		
+		<div class="mt-4 border-bottom pb-3">
+			<p class="display-6">
+				Розрахунок складу сухої та горючої маси палива
+			</p>
+			<div id="result-1">
+				<table class="table table-bordered table-striped table-hover">
+					<thead>
+						<tr>
+							<th scope="col">#</th>
+							<th scope="col" class="text-decoration-underline" data-bs-toggle="tooltip"
+								title="Масовий вміст вуглецю в паливі">
+								C
+							</th>
+							<th scope="col" class="text-decoration-underline" data-bs-toggle="tooltip"
+								title="Масовий вміст водню в паливі">
+								H
+							</th>
+							<th scope="col" class="text-decoration-underline" data-bs-toggle="tooltip"
+								title="Масовий вміст сірки в паливі">
+								S
+							</th>
+							<th scope="col" class="text-decoration-underline" data-bs-toggle="tooltip"
+								title="Масовий вміст кисню в паливі">
+								O
+							</th>
+							<th scope="col" class="text-decoration-underline" data-bs-toggle="tooltip"
+								title="Масовий вміст азоту в паливі">
+								N
+							</th>
+							<th scope="col" class="text-decoration-underline" data-bs-toggle="tooltip"
+								title="Масовий вміст золи в паливі">
+								A
+							</th>
+							<th scope="col" class="text-decoration-underline" data-bs-toggle="tooltip"
+								title="Масовий вміст вологи в паливі">
+								W
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr id="dry-elements">
+							<th scope="row" class="text-decoration-underline" data-bs-toggle="tooltip"
+								title="Робоча маса без вологи">
+								Суха маса
+							</th>
+						</tr>
+						<tr id="dryach-elements">
+							<th scope="row" class="text-decoration-underline" data-bs-toggle="tooltip"
+								title="Суха маса без вуглецю">
+								Горюча маса
+							</th>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<div class="mt-4 border-bottom pb-3">
+			<p class="display-6">
+				Розрахунок нижчої теплоти згоряння для робочої, сухої та горючої маси
+			</p>
+			<div id="result-2">
+				<div class="row">
+					<div class="col">
+						<p class="fw-bold text-decoration-underline" data-bs-toggle="tooltip"
+						title="Маса зі всіх складових">
+							Робоча маса:
+						</p>
+					</div>
+					<div class="col">
+						<p class="text-muted" id="raw-combheat">
+						</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						<p class="fw-bold text-decoration-underline" data-bs-toggle="tooltip"
+						title="Робоча маса без вологи">
+							Суха маса:
+						</p>
+					</div>
+					<div class="col">
+						<p class="text-muted" id="dry-combheat">
+						</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						<p class="fw-bold text-decoration-underline" data-bs-toggle="tooltip" 
+							title="Суха маса без золи">
+							Горюча маса:
+						</p>
+					</div>
+					<div class="col">
+						<p class="text-muted" id="dryach-combheat">
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
+		integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+<script src="main.js" type="module"></script>
+<script src="app.js" type="module"></script>
+<script src="utils.js" type="module"></script>
+</html>
